@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EASB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./Styles/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header_container">
+                <img class="easbLogo" src="./Styles/Images/BankLogo.png" alt="EASB Logo">
+                <div class="header_right">
+                    <form action="/logout" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                    <form action="/RecordsRedir" method="get">
+                        <button type="submit">Records</button>
+                    </form>
+                    <form action="/MakeTransactionRedir" method="get">
+                        <button type="submit">Make Transaction</button>
+                    </form>
+                    <form action="/CreateCardRedir" method="get">
+                        <button type="submit">Add Card</button>
+                    </form>
+                    <button class="active">Account</button>
+
+                </div>
+            </div>
+        </header>
+        <main class="splash">
+            <main class="home_main">
+                <img class="splashscreen"src="./Styles/Images/accountsplash.jpg" alt="EASB Logo">
+                <div class = "text-block">
+                    <h1 id="UserDetails"></h1>
+                    <h3>Please Login Or Register To Utilise Our Transaction Facilities</h3>
+                </div>
+            </main>
+
+        </main>
+
+
+        <footer>
+            <div class="footer_container">
+                <h1>©2024 Enterprise Automation Services Bank</h1>
+            </div>
+        </footer>
+        
+        <script>
+            async function get_user(){
+                const output = await fetch("http://localhost:4567/AccountName", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await output.json();
+            document.getElementById("UserDetails").textContent = `Welcome ${data.message}`
+            }
+
+            get_user();
+            
+        </script>
+    </body>
+</html>

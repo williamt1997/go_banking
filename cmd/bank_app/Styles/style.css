@@ -1,0 +1,122 @@
+header {
+    height: 25%;
+    overflow: hidden;
+    background-color: #04003f;
+    padding: 20px 10px;
+}
+.header_container {
+    height: 100px;
+    background-color: #04003f;
+}
+.home_main{
+    position: relative;
+    text-align: center;
+}
+.easbLogo {
+    height: 100px;
+}
+
+.header_right button {
+    float: right;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px; 
+    line-height: 25px;
+    border-radius: 4px;
+}
+.header_right button.active {
+    background-color: #aaaaaa;
+}
+.header_right button:hover {
+    background-color: #7c6db4;
+}
+
+.header_right {
+    float: right;
+    width: 100%;
+    background-color: #030029;
+}
+
+.splashscreen {
+    width: 100%;
+    height: 500px;
+}
+
+.text-block {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    background-color: rgb(4,0,63, 0.75);
+    color: white;
+    }
+
+.footer_container {
+    background-color: #04003f;
+    color: white;
+    position: fixed;
+    left: 0;
+    right:0;
+    height: 100%;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px;
+}
+
+.card_record {
+    border:1px solid #04003f;
+    background-color: rgb(188, 188, 188);
+    
+}
+.card_record h1 {
+    width: 100%;
+    background-color: rgb(156, 156, 156);
+}
+.card_record h2 {
+    width: 100%;
+    background-color: rgb(188, 188, 188);
+}
+
+.card_record:hover {
+    background-color: #7c6db4;
+}
+
+.card_records {
+    border:1px solid #04003f;
+    background-color: rgb(188, 188, 188);
+    
+}
+.card_records h1 {
+    width: 100%;
+    background-color: rgb(156, 156, 156);
+}
+.card_records h2 {
+    width: 100%;
+    background-color: rgb(188, 188, 188);
+}
+
+.authform {
+    justify-content: center;
+    text-align: center;
+}
+.authform input {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 50%;
+    height: 40px;
+    font-size: 20px;
+}
+
+.authform button {
+    margin-top: 10px;
+    margin-bottom: 50px;
+    width: 50%;
+    height: 40px;
+}
+
+@media screen and (max-width: 800px) {
+    .header_right button {
+        width: 100%;
+    }
+}

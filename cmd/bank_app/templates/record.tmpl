@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EASB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./Styles/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header_container">
+                <img class="easbLogo" src="./Styles/Images/BankLogo.png" alt="EASB Logo">
+                <div class="header_right">
+                    <form action="/logout" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                    <button class="active">Records</button>
+                    <form action="/MakeTransactionRedir" method="get">
+                        <button type="submit">Make Transaction</button>
+                    </form>
+                    <form action="/CreateCardRedir" method="get">
+                        <button type="submit">Add Card</button>
+                    </form>
+                    <form action="/AccountRedir" method="get">
+                        <button type="submit">Account</button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div id="card_container"></div>
+
+        </main>
+
+
+        <footer>
+            <div class="footer_container">
+                <h1>©2024 Enterprise Automation Services Bank</h1>
+            </div>
+        </footer>
+        
+        <script>
+            async function get_card(){
+                const output = await fetch("http://localhost:4567/getcard", {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await output.json();
+                const card_json = JSON.parse(data.message)
+                
+                function cardiv(card_json_data){
+                    var card_container = document.getElementById("card_container");
+
+                    if (card_json_data.length !== 0){ 
+
+                        card_json_data.forEach(function(record){
+                            const carddiv = document.createElement("div");
+                            carddiv.className = "card_record";
+                            carddiv.id = record.card_code;
+                            carddiv.innerHTML = "<h1>" + "Card Code: " + record.card_code + "</h1>" + "<h2>" + "Card Balance: " + record.card_balance + "</h2>"
+                            carddiv.addEventListener('click', () => click_card(record.card_code));
+                            card_container.appendChild(carddiv);
+                        });
+                    }
+                    else {
+                        const carddiv = document.createElement("div");
+                        carddiv.className = "card_record";
+                        carddiv.id = "no_card";
+                        carddiv.innerHTML = "<h1>" + "You Haven't Added Any Cards" + "</h1>" + "<h2>" + "Please Add A Card The Add Card Button " + "</h2>"
+                        card_container.appendChild(carddiv);
+                    }
+
+                }
+                cardiv(card_json);
+            }
+            
+            async function click_card(code){
+                let card_code_id = code;
+                const output = await fetch("http://localhost:4567/GetCardID", {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify( { card_code_id } )
+                });
+                const data = await output.json();
+                if(data.is_ok == "no"){
+                    alert(data.message)
+                }
+                else{
+                    window.location.href = "/viewrecord"
+                }
+            }
+            get_card();
+
+
+            
+            
+        </script>
+    </body>
+</html>

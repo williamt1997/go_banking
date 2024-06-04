@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EASB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./Styles/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header_container">
+                <img class="easbLogo" src="./Styles/Images/BankLogo.png" alt="EASB Logo">
+            </div>
+            <div class="header_right">
+                <button class="active">Register</a>
+                <form action="/LoginRedir" method="get">
+                    <button type="submit">Login</button>
+                </form>
+                <form action="/HomeRedir" method="get">
+                    <button type="submit">Home</button>
+                </form>
+            </div>
+        </header>
+        <main class="authsector">
+            <form id="register_account" class="authform">
+                <input class="authforminput" id="account_name" name="account_name" placeholder="Please Enter A Username" type="text" required>
+                <input class="authforminput" id="account_email" name="account_email" placeholder="Please Enter A Email" type="email" required>
+                <input class="authforminput" id="account_password" name="account_password" placeholder="Please Enter A Password" type="password" required>
+                <input class="authforminput" id="passconfirm" placeholder="Please ReEnter Your Password" type="password" required>
+                <button type="submit">Create Account</button>
+            </form>
+
+        </main>
+
+
+        <footer>
+            <div class="footer_container">
+                <h1 id="error">©2024 Enterprise Automation Services Bank</h1>
+            </div>
+        </footer>
+        <script>
+
+            document.getElementById("register_account").addEventListener("submit", async function(event) {
+                event.preventDefault();
+                const account_name = document.getElementById('account_name').value;
+                const account_email = document.getElementById('account_email').value;
+                const account_password = document.getElementById('account_password').value;
+                const passconfirm = document.getElementById('passconfirm').value;
+
+                if (account_password != passconfirm) {
+                    alert("Passwords Do Not Match");
+                    return;
+                } else if (account_password.length < 8){
+                    alert("Password Must Be Larger Than 8 Characters");
+                    return;
+                } else if (account_password.length > 20){
+                    alert("Password Must Be Less Than 20 Characters");
+                    return;
+                } else if (!account_password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]+$/)){
+                    alert("Password Must Contain At Least 1 special character, 1 numeric character and 1 Upper Case Character ");
+                    return;
+                } else if (account_email.length > 50){
+                    alert("Email Cannot Be Larger Than 50 characters");
+                    return;
+                } else if (account_name > 25) {
+                    alert("Account Name Cannot Be Larger Than 25 Characters");
+                    return;
+                }
+                
+
+                const output = await fetch("http://localhost:4567/register", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify( { account_name, account_email, account_password } )
+                });
+                const data = await output.json();
+                alert(data.message)
+                if(data.is_ok == "yes"){
+                    window.location.href = "/login"
+                }
+            });
+        </script>
+    </body>
+</html>

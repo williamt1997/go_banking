@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EASB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./Styles/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header_container">
+                <img class="easbLogo" src="./Styles/Images/BankLogo.png" alt="EASB Logo">
+                <div class="header_right">
+                    <form action="/logout" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                    <form action="/RecordsRedir" method="get">
+                        <button type="submit">Records</button>
+                    </form>
+                    <form action="/MakeTransactionRedir" method="get">
+                        <button type="submit">Make Transaction</button>
+                    </form>
+                    <form action="/CreateCardRedir" method="get">
+                        <button type="submit">Add Card</button>
+                    </form>
+                    <form action="/AccountRedir" method="get">
+                        <button type="submit">Account</button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div id="card_container"></div>
+
+        </main>
+
+
+        <footer>
+            <div class="footer_container">
+                <h1>©2024 Enterprise Automation Services Bank</h1>
+            </div>
+        </footer>
+        
+        <script>
+            async function get_card(){
+                const output = await fetch("http://localhost:4567/transaction_history", {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await output.json();
+                const outgoing_payments = JSON.parse(data.out)
+                const incoming_payments = JSON.parse(data.in)
+
+                console.log(outgoing_payments)
+                
+                
+                    var card_container = document.getElementById("card_container");
+                    
+                    let carddiv = document.createElement("div");
+                    carddiv.className = "card_records";
+                    carddiv.innerHTML = "<h1>" + "Payments Out" + "</h1>"
+                    card_container.appendChild(carddiv);
+                    
+                    console.log(outgoing_payments.length)
+
+                    if (outgoing_payments !== null){ 
+        
+                        outgoing_payments.forEach(function(record){
+                            let carddiv = document.createElement("div");
+                            carddiv.className = "card_records";
+                            carddiv.id = record.card_code;
+                            carddiv.innerHTML = "<h1>" + "Your Card: " + record.SenderCode + " £" + record.TransactionAmount + " ==> " + "Recipient Card: " + record.RecipientCode + "</h1>" + "<h3>" + "Made At: " + record.TransactionTimestamp + "</h3>" 
+                            card_container.appendChild(carddiv);
+                        });
+                    }
+                    else {
+                        let carddiv = document.createElement("div");
+                        carddiv.className = "card_records";
+                        carddiv.id = "no_transaction";
+                        carddiv.innerHTML = "<h1>" + "You Haven't Made Any Transactions" + "</h1>" + "<h3>" + "To Make A Transaction Then please Click On The Make Transaction Button" + "</h3>"
+                        card_container.appendChild(carddiv);
+                    }
+
+                    let carddiv2 = document.createElement("div");
+                    carddiv2.className = "card_records";
+                    carddiv2.innerHTML = "<h1>" + "Payments In" + "</h1>"
+                    card_container.appendChild(carddiv2);
+
+                    if (incoming_payments !== null){ 
+        
+                        incoming_payments.forEach(function(records){
+                            let carddiv2 = document.createElement("div");
+                            carddiv2.className = "card_records";
+                            carddiv2.id = records.card_code;
+                            carddiv2.innerHTML = "<h1>" + "Your Card: " + record.SenderCode +  " <== " + " £" + record.TransactionAmount + " Recipient Card: " + record.RecipientCode + "</h1>" + "<h3>" + "Made At: " + records.transaction_timestamp + "</h3>" 
+                            card_container.appendChild(carddiv2);
+                        });
+                    }
+                    else {
+                        let carddiv2 = document.createElement("div");
+                        carddiv2.className = "card_records";
+                        carddiv2.id = "no_transaction";
+                        carddiv2.innerHTML = "<h1>" + "You Haven't Received Any Payments" + "</h1>" + "<h3>" + "Poor You" + "</h3>"
+                        card_container.appendChild(carddiv2);
+                    }
+
+                }
+            
+        
+
+            get_card();
+
+
+            
+            
+        </script>
+    </body>
+</html>

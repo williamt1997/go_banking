@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EASB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./Styles/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header_container">
+                <img class="easbLogo" src="./Styles/Images/BankLogo.png" alt="EASB Logo">
+            </div>
+            <div class="header_right">
+                <form action="/RegisterRedir" method="get">
+                    <button type="submit">Register</button>
+                </form>
+                <button class="active">Login</a>
+                <form action="/HomeRedir" method="get">
+                    <button type="submit">Home</button>
+                </form>
+            </div>
+        </header>
+        <main class="authsector">
+            <form id="login_account" class="authform">
+                <input class="authforminput" id="account_email" name="account_email" placeholder="Please Enter A Email" type="email" required>
+                <br><br>
+                <input class="authforminput" id="account_password" name="account_password" placeholder="Please Enter A Password" type="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </main>
+
+
+        <footer>
+            <div class="footer_container">
+                <h1>©2024 Enterprise Automation Services Bank</h1>
+            </div>
+        </footer>
+        
+        <script>
+            document.getElementById("login_account").addEventListener("submit", async function(event) {
+                event.preventDefault();
+                const account_email = document.getElementById('account_email').value;
+                const account_password = document.getElementById('account_password').value;
+
+                const output = await fetch("http://localhost:4567/login", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify( { account_email, account_password } )
+                });
+                const data = await output.json();
+                alert(data.message)
+                if(data.is_ok == "yes"){
+                    window.location.href = "/account"
+                }
+            });
+        </script>
+    </body>
+</html>

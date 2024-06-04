@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EASB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./Styles/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header_container">
+                <img class="easbLogo" src="./Styles/Images/BankLogo.png" alt="EASB Logo">
+                <div class="header_right">
+                    <form action="/logout" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                    <form action="/RecordsRedir" method="get">
+                        <button type="submit">Records</button>
+                    </form>
+                    <form action="/MakeTransactionRedir" method="get">
+                        <button type="submit">Make Transaction</button>
+                    </form>
+                    <button class="active">Add Card</button>
+                    <form action="/AccountRedir" method="get">
+                        <button type="submit">Account</button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <main class="authsector">
+            <form id="create_card" class="authform">
+                <input class="authforminput" id="card_balance" name="card_balance" placeholder="Please Enter Your New Cards Balance" type="text" required>
+                <button type="submit">Create Account</button>
+            </form>
+
+        </main>
+
+
+        <footer>
+            <div class="footer_container">
+                <h1>©2024 Enterprise Automation Services Bank</h1>
+            </div>
+        </footer>
+        
+        <script>
+            document.getElementById("create_card").addEventListener("submit", async function(event) {
+                event.preventDefault();
+                const card_balance = document.getElementById('card_balance').value;
+
+
+                if (card_balance.length > 18){
+                    alert("You Can Only Input Amounts From 0.01 To 999999999999999.99");
+                    return;
+                } else if (!card_balance.match(/^\d*\.?\d{0,2}$/)){
+                    alert("Only Numeric Values With A Decimal Place Of 2 Is Allowed");
+                    return;
+                }
+
+                const output = await fetch("http://localhost:4567/createcard", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify( { card_balance } )
+                });
+                const data = await output.json();
+                alert(data.message)
+            });
+            
+        </script>
+    </body>
+</html>
