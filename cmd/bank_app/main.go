@@ -135,7 +135,7 @@ func main() {
 
 	r.GET("/account", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "account.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "account.tmpl", map[string]string{"title": "account_page"})
 	})
 
 	r.GET("/AccountRedir", func(c *gin.Context) {
