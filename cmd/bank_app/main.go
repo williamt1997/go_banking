@@ -60,22 +60,27 @@ func main() {
 	r.Static("/Styles", "./Styles/")
 
 	r.GET("/", func(c *gin.Context) {
+		deauthentication(c)
 		c.HTML(200, "index.tmpl", map[string]string{"title": "home_page"})
 	})
 
 	r.GET("/HomeRedir", func(c *gin.Context) {
+		deauthentication(c)
 		c.Redirect(http.StatusFound, "/")
 	})
 
 	r.GET("/register", func(c *gin.Context) {
+		deauthentication(c)
 		c.HTML(200, "register.tmpl", map[string]string{"title": "register_page"})
 	})
 
 	r.GET("/RegisterRedir", func(c *gin.Context) {
+		deauthentication(c)
 		c.Redirect(http.StatusFound, "/register")
 	})
 
 	r.POST("/register", func(c *gin.Context) {
+		deauthentication(c)
 		var newAccount CreateAccount
 		c.ShouldBindJSON(&newAccount)
 
@@ -102,14 +107,17 @@ func main() {
 	})
 
 	r.GET("/login", func(c *gin.Context) {
+		deauthentication(c)
 		c.HTML(200, "login.tmpl", map[string]string{"title": "login_page"})
 	})
 
 	r.GET("/LoginRedir", func(c *gin.Context) {
+		deauthentication(c)
 		c.Redirect(http.StatusFound, "/login")
 	})
 
 	r.POST("/login", func(c *gin.Context) {
+		deauthentication(c)
 		var loginAccount LoginAccount
 		c.ShouldBindJSON(&loginAccount)
 
@@ -372,5 +380,13 @@ func authentication(c *gin.Context) {
 	var test = session.Get("account_code")
 	if test == nil {
 		c.Redirect(http.StatusFound, "/")
+	}
+}
+
+func deauthentication(c *gin.Context) {
+	session := sessions.Default(c)
+	var test = session.Get("account_code")
+	if test != nil {
+		c.Redirect(http.StatusFound, "/account")
 	}
 }
