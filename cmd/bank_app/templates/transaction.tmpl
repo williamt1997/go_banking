@@ -61,7 +61,7 @@
                             const carddiv = document.createElement("div");
                             carddiv.className = "card_record";
                             carddiv.id = record.card_code;
-                            carddiv.innerHTML = "<h1>" + "Card Code: " + record.card_code + "</h1>" + "<h2>" + "Card Balance: " + record.card_balance + "</h2>"
+                            carddiv.innerHTML = "<h1>" + "Card Code: " + record.card_code + "</h1>" + "<h2>" + "Card Balance: £" + record.card_balance + "</h2>"
                             carddiv.addEventListener('click', () => click_card(record.card_code));
                             card_container.appendChild(carddiv);
                         });
