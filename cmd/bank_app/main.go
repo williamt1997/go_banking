@@ -153,7 +153,7 @@ func main() {
 
 	r.GET("/createcard", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "createcard.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "createcard.tmpl", map[string]string{"title": "createcard_page"})
 	})
 
 	r.GET("/CreateCardRedir", func(c *gin.Context) {
@@ -224,7 +224,7 @@ func main() {
 
 	r.GET("/transaction", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "transaction.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "transaction.tmpl", map[string]string{"title": "transaction_page"})
 	})
 
 	r.GET("/MakeTransactionRedir", func(c *gin.Context) {
@@ -234,7 +234,7 @@ func main() {
 
 	r.GET("/maketransaction", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "maketransaction.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "maketransaction.tmpl", map[string]string{"title": "maketransaction_page"})
 	})
 
 	r.POST("/create_transaction", func(c *gin.Context) {
@@ -308,7 +308,7 @@ func main() {
 
 	r.GET("/record", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "record.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "record.tmpl", map[string]string{"title": "record_page"})
 	})
 
 	r.GET("/RecordsRedir", func(c *gin.Context) {
@@ -318,7 +318,7 @@ func main() {
 
 	r.GET("/viewrecord", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "viewrecord.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "viewrecord.tmpl", map[string]string{"title": "viewrecord_page"})
 	})
 
 	r.GET("/transaction_history", func(c *gin.Context) {
