@@ -94,7 +94,7 @@
                             let carddiv2 = document.createElement("div");
                             carddiv2.className = "card_records";
                             carddiv2.id = records.card_code;
-                            carddiv2.innerHTML = "<h1>" + "Your Card: " + records.SenderCode +  " <== " + " £" + records.TransactionAmount + " Recipient Card: " + records.RecipientCode + "</h1>" + "<h3>" + "Made At: " + records.TransactionTimestamp + "</h3>" 
+                            carddiv2.innerHTML = "<h1>" + "Your Card: " + records.RecipientCode +  " <== " + " £" + records.TransactionAmount + " Sender Card: " + records.SenderCode + "</h1>" + "<h3>" + "Made At: " + records.TransactionTimestamp + "</h3>" 
                             card_container.appendChild(carddiv2);
                         });
                     }
