@@ -55,7 +55,7 @@
                 function cardiv(card_json_data){
                     var card_container = document.getElementById("card_container");
 
-                    if (card_json_data.length !== 0){ 
+                    if (card_json_data !== null){ 
 
                         card_json_data.forEach(function(record){
                             const carddiv = document.createElement("div");

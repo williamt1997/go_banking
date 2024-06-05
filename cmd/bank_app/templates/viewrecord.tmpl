@@ -64,7 +64,6 @@
                     carddiv.innerHTML = "<h1>" + "Payments Out" + "</h1>"
                     card_container.appendChild(carddiv);
                     
-                    console.log(outgoing_payments.length)
 
                     if (outgoing_payments !== null){ 
         
@@ -95,7 +94,7 @@
                             let carddiv2 = document.createElement("div");
                             carddiv2.className = "card_records";
                             carddiv2.id = records.card_code;
-                            carddiv2.innerHTML = "<h1>" + "Your Card: " + record.SenderCode +  " <== " + " £" + record.TransactionAmount + " Recipient Card: " + record.RecipientCode + "</h1>" + "<h3>" + "Made At: " + records.transaction_timestamp + "</h3>" 
+                            carddiv2.innerHTML = "<h1>" + "Your Card: " + records.SenderCode +  " <== " + " £" + records.TransactionAmount + " Recipient Card: " + records.RecipientCode + "</h1>" + "<h3>" + "Made At: " + records.TransactionTimestamp + "</h3>" 
                             card_container.appendChild(carddiv2);
                         });
                     }
