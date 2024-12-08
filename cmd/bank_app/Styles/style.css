@@ -52,13 +52,15 @@ header {
     color: white;
     }
 
+footer{
+    background-color: #04003f;
+}
+
 .footer_container {
     background-color: #04003f;
     color: white;
-    position: fixed;
-    left: 0;
-    right:0;
-    height: 100%;
+    height: 42vh;
+    width: 100%;
     text-align: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 10px;
@@ -66,7 +68,7 @@ header {
 
 .card_record {
     border:1px solid #04003f;
-    background-color: rgb(188, 188, 188);
+    background-color: rgb(237, 237, 237);
     
 }
 .card_record h1 {
@@ -84,7 +86,7 @@ header {
 
 .card_records {
     border:1px solid #04003f;
-    background-color: rgb(188, 188, 188);
+    background-color: rgb(237, 237, 237);
     
 }
 .card_records h1 {

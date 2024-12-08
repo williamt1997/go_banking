@@ -60,22 +60,27 @@ func main() {
 	r.Static("/Styles", "./Styles/")
 
 	r.GET("/", func(c *gin.Context) {
+		deauthentication(c)
 		c.HTML(200, "index.tmpl", map[string]string{"title": "home_page"})
 	})
 
 	r.GET("/HomeRedir", func(c *gin.Context) {
+		deauthentication(c)
 		c.Redirect(http.StatusFound, "/")
 	})
 
 	r.GET("/register", func(c *gin.Context) {
+		deauthentication(c)
 		c.HTML(200, "register.tmpl", map[string]string{"title": "register_page"})
 	})
 
 	r.GET("/RegisterRedir", func(c *gin.Context) {
+		deauthentication(c)
 		c.Redirect(http.StatusFound, "/register")
 	})
 
 	r.POST("/register", func(c *gin.Context) {
+		deauthentication(c)
 		var newAccount CreateAccount
 		c.ShouldBindJSON(&newAccount)
 
@@ -102,14 +107,17 @@ func main() {
 	})
 
 	r.GET("/login", func(c *gin.Context) {
+		deauthentication(c)
 		c.HTML(200, "login.tmpl", map[string]string{"title": "login_page"})
 	})
 
 	r.GET("/LoginRedir", func(c *gin.Context) {
+		deauthentication(c)
 		c.Redirect(http.StatusFound, "/login")
 	})
 
 	r.POST("/login", func(c *gin.Context) {
+		deauthentication(c)
 		var loginAccount LoginAccount
 		c.ShouldBindJSON(&loginAccount)
 
@@ -135,7 +143,7 @@ func main() {
 
 	r.GET("/account", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "account.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "account.tmpl", map[string]string{"title": "account_page"})
 	})
 
 	r.GET("/AccountRedir", func(c *gin.Context) {
@@ -153,7 +161,7 @@ func main() {
 
 	r.GET("/createcard", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "createcard.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "createcard.tmpl", map[string]string{"title": "createcard_page"})
 	})
 
 	r.GET("/CreateCardRedir", func(c *gin.Context) {
@@ -224,7 +232,7 @@ func main() {
 
 	r.GET("/transaction", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "transaction.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "transaction.tmpl", map[string]string{"title": "transaction_page"})
 	})
 
 	r.GET("/MakeTransactionRedir", func(c *gin.Context) {
@@ -234,7 +242,7 @@ func main() {
 
 	r.GET("/maketransaction", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "maketransaction.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "maketransaction.tmpl", map[string]string{"title": "maketransaction_page"})
 	})
 
 	r.POST("/create_transaction", func(c *gin.Context) {
@@ -308,7 +316,7 @@ func main() {
 
 	r.GET("/record", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "record.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "record.tmpl", map[string]string{"title": "record_page"})
 	})
 
 	r.GET("/RecordsRedir", func(c *gin.Context) {
@@ -318,7 +326,7 @@ func main() {
 
 	r.GET("/viewrecord", func(c *gin.Context) {
 		authentication(c)
-		c.HTML(200, "viewrecord.tmpl", map[string]string{"title": "register_page"})
+		c.HTML(200, "viewrecord.tmpl", map[string]string{"title": "viewrecord_page"})
 	})
 
 	r.GET("/transaction_history", func(c *gin.Context) {
@@ -372,5 +380,13 @@ func authentication(c *gin.Context) {
 	var test = session.Get("account_code")
 	if test == nil {
 		c.Redirect(http.StatusFound, "/")
+	}
+}
+
+func deauthentication(c *gin.Context) {
+	session := sessions.Default(c)
+	var test = session.Get("account_code")
+	if test != nil {
+		c.Redirect(http.StatusFound, "/account")
 	}
 }
